@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Retângulo com Gradiente e Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .retangulo {
+            width: 300px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 33px;
+            font-family: monospace;
+            color: #000000;
+            margin: 0 auto;
+        }
+
+        .inputs {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 5px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .output-container {
+            margin-top: 20px;
+        }
+
+        #outputCorTexto {
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            background-color: #ffffff;
+            font-family: monospace;
+        }
+
+        #output {
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            background-color: #ffffff;
+            font-family: monospace;
+        }
+
+        .copy-button {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="retangulo" id="retangulo">
+            Seu texto aqui
+        </div>
+
+        <div class="inputs">
+            <input type="color" id="cor1" value="#ff0000"> Cor 1<br>
+            <input type="color" id="cor2" value="#0000ff"> Cor 2<br>
+            <input type="color" id="corTexto" value="#000000"> Cor do Texto<br>
+            <input type="text" id="texto" placeholder="Digite seu texto">
+        </div>
+        <button onclick="atualizarRetangulo()">Atualizar</button>
+
+<div class="output-container">
+    <span id="output"></span>
+    <button class="copy-button" onclick="copiarString()">Copiar</button>
+</div>
+
+<!-- Nova string para a cor do texto -->
+
+<div class="output-container">
+    <span id="outputCorTexto"></span>
+    <button class="copy-button" onclick="copiarCorTexto()">Copiar cor do texto</button>
+</div>
+
+    </div>
+
+    <script>
+function atualizarRetangulo() {
+    const cor1 = document.getElementById("cor1").value;
+    const cor2 = document.getElementById("cor2").value;
+    const corTexto = document.getElementById("corTexto").value;
+    const texto = document.getElementById("texto").value;
+
+    const retangulo = document.getElementById("retangulo");
+    retangulo.style.background = `linear-gradient(0deg, ${cor1}, ${cor2})`;
+    retangulo.style.color = corTexto;
+    retangulo.textContent = texto ? texto : "Seu texto aqui";
+
+    // Gerar string de saída para o gradiente
+    const output = document.getElementById("output");
+    output.textContent = `${texto || "Seu texto aqui"} - Cor 1: ${cor1}, Cor 2: ${cor2}`;
+
+    // Gerar string de saída para a cor do texto
+    const outputCorTexto = document.getElementById("outputCorTexto");
+    outputCorTexto.textContent = `Cor do texto: ${corTexto}`;
+}
+
+function copiarString() {
+    const output = document.getElementById("output");
+    const textToCopy = output.textContent;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Texto copiado!");
+    }).catch(err => {
+        alert("Erro ao copiar: " + err);
+    });
+}
+
+// Função para copiar a cor do texto
+function copiarCorTexto() {
+    const outputCorTexto = document.getElementById("outputCorTexto");
+    const textToCopy = outputCorTexto.textContent;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Cor do texto copiada!");
+    }).catch(err => {
+        alert("Erro ao copiar: " + err);
+    });
+}
+    </script>
+</body>
+</html>
